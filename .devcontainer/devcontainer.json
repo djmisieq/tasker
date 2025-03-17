@@ -4,9 +4,12 @@
   "forwardPorts": [3000],
   "portsAttributes": {
     "3000": {
-      "label": "Next.js App",
+      "label": "Application",
       "onAutoForward": "openPreview"
     }
+  },
+  "otherPortsAttributes": {
+    "onAutoForward": "notify"
   },
   "customizations": {
     "vscode": {
@@ -25,11 +28,10 @@
       }
     }
   },
-  "postCreateCommand": "npm install && npm run dev",
-  "remoteUser": "node",
   "features": {
-    "ghcr.io/devcontainers/features/node:1": {
-      "version": "latest"
-    }
-  }
+    "ghcr.io/devcontainers-contrib/features/pnpm:2": {}
+  },
+  "postCreateCommand": "pnpm install",
+  "postStartCommand": "pnpm dev",
+  "remoteUser": "node"
 }

@@ -31,52 +31,47 @@ export default function SettingsPage() {
             <UserCog className="h-4 w-4" />
             <span className="hidden md:inline">Konto</span>
           </TabsTrigger>
-          <TabsTrigger value="security" className="flex items-center gap-1">
+          <TabsTrigger value="password" className="flex items-center gap-1">
             <Lock className="h-4 w-4" />
-            <span className="hidden md:inline">Bezpieczeństwo</span>
+            <span className="hidden md:inline">Hasło</span>
           </TabsTrigger>
           <TabsTrigger value="notifications" className="flex items-center gap-1">
             <Bell className="h-4 w-4" />
             <span className="hidden md:inline">Powiadomienia</span>
           </TabsTrigger>
-          <TabsTrigger value="privacy" className="flex items-center gap-1">
-            <Shield className="h-4 w-4" />
-            <span className="hidden md:inline">Prywatność</span>
-          </TabsTrigger>
           <TabsTrigger value="appearance" className="flex items-center gap-1">
             <Palette className="h-4 w-4" />
             <span className="hidden md:inline">Wygląd</span>
           </TabsTrigger>
-          <TabsTrigger value="workspace" className="flex items-center gap-1">
+          <TabsTrigger value="security" className="flex items-center gap-1">
+            <Shield className="h-4 w-4" />
+            <span className="hidden md:inline">Bezpieczeństwo</span>
+          </TabsTrigger>
+          <TabsTrigger value="organization" className="flex items-center gap-1">
             <Building className="h-4 w-4" />
-            <span className="hidden md:inline">Workspace</span>
+            <span className="hidden md:inline">Organizacja</span>
           </TabsTrigger>
         </TabsList>
 
         <TabsContent value="account">
           <Card>
             <CardHeader>
-              <CardTitle>Informacje o koncie</CardTitle>
+              <CardTitle>Informacje o profilu</CardTitle>
               <CardDescription>
-                Zaktualizuj swoje dane osobowe i informacje kontaktowe.
+                Edytuj swoje dane profilowe wyświetlane w aplikacji.
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
-                <Avatar className="h-16 w-16">
-                  <AvatarImage src={user?.avatar || "/placeholder-user.jpg"} alt="Avatar" />
-                  <AvatarFallback>
-                    {user?.name?.charAt(0).toUpperCase() || "U"}
-                  </AvatarFallback>
+            <CardContent className="space-y-4">
+              <div className="flex flex-col md:flex-row gap-4 md:items-center">
+                <Avatar className="h-20 w-20">
+                  <AvatarImage src={user?.avatar || "/placeholder-user.jpg"} alt={user?.name || "User"} />
+                  <AvatarFallback>{user?.name?.charAt(0).toUpperCase() || "U"}</AvatarFallback>
                 </Avatar>
-                <div className="space-y-1">
-                  <h4 className="text-sm font-medium">Zdjęcie profilowe</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Twoje zdjęcie będzie widoczne dla innych użytkowników.
-                  </p>
-                  <div className="flex gap-2 mt-2">
+                <div className="space-y-2">
+                  <h3 className="font-medium">Zdjęcie profilowe</h3>
+                  <div className="flex space-x-2">
                     <Button size="sm" variant="outline">
-                      Zmień
+                      Zmień zdjęcie
                     </Button>
                     <Button size="sm" variant="outline">
                       Usuń
@@ -84,31 +79,166 @@ export default function SettingsPage() {
                   </div>
                 </div>
               </div>
-
               <Separator />
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid gap-4 md:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="name">Imię i nazwisko</Label>
                   <Input id="name" defaultValue={user?.name || ""} />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email">Adres email</Label>
                   <Input id="email" type="email" defaultValue={user?.email || ""} />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="phone">Telefon</Label>
-                  <Input id="phone" type="tel" defaultValue="+48 123 456 789" />
+                  <Label htmlFor="job">Stanowisko</Label>
+                  <Input id="job" defaultValue="Project Manager" />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="role">Stanowisko</Label>
-                  <Input id="role" defaultValue={user?.role || "Project Manager"} />
+                  <Label htmlFor="department">Dział</Label>
+                  <Input id="department" defaultValue="Zarządzanie Projektami" />
                 </div>
               </div>
             </CardContent>
-            <CardFooter className="flex justify-end gap-2">
-              <Button variant="outline">Anuluj</Button>
+            <CardFooter className="flex justify-end">
               <Button>Zapisz zmiany</Button>
+            </CardFooter>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="password">
+          <Card>
+            <CardHeader>
+              <CardTitle>Zmiana hasła</CardTitle>
+              <CardDescription>
+                Zmień swoje hasło do konta.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="current-password">Aktualne hasło</Label>
+                <Input id="current-password" type="password" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="new-password">Nowe hasło</Label>
+                <Input id="new-password" type="password" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="confirm-password">Potwierdź nowe hasło</Label>
+                <Input id="confirm-password" type="password" />
+              </div>
+            </CardContent>
+            <CardFooter className="flex justify-end">
+              <Button>Zmień hasło</Button>
+            </CardFooter>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="notifications">
+          <Card>
+            <CardHeader>
+              <CardTitle>Ustawienia powiadomień</CardTitle>
+              <CardDescription>
+                Dostosuj jakie powiadomienia chcesz otrzymywać.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-4">
+                <h3 className="text-sm font-medium">Email</h3>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="email-tasks" className="flex-1">
+                      Przydzielenie zadania
+                    </Label>
+                    <Switch id="email-tasks" defaultChecked />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="email-meetings" className="flex-1">
+                      Nowe spotkanie
+                    </Label>
+                    <Switch id="email-meetings" defaultChecked />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="email-comments" className="flex-1">
+                      Komentarze do zadań
+                    </Label>
+                    <Switch id="email-comments" />
+                  </div>
+                </div>
+              </div>
+              <Separator />
+              <div className="space-y-4">
+                <h3 className="text-sm font-medium">W aplikacji</h3>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="app-tasks" className="flex-1">
+                      Przydzielenie zadania
+                    </Label>
+                    <Switch id="app-tasks" defaultChecked />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="app-meetings" className="flex-1">
+                      Nowe spotkanie
+                    </Label>
+                    <Switch id="app-meetings" defaultChecked />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="app-comments" className="flex-1">
+                      Komentarze do zadań
+                    </Label>
+                    <Switch id="app-comments" defaultChecked />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="app-updates" className="flex-1">
+                      Aktualizacje projektów
+                    </Label>
+                    <Switch id="app-updates" defaultChecked />
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+            <CardFooter className="flex justify-end">
+              <Button>Zapisz preferencje</Button>
+            </CardFooter>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="appearance">
+          <Card>
+            <CardHeader>
+              <CardTitle>Preferencje wyglądu</CardTitle>
+              <CardDescription>
+                Dostosuj wygląd aplikacji według swoich preferencji.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label>Motyw</Label>
+                <div className="grid grid-cols-3 gap-2">
+                  <Button variant="outline" className="justify-start">
+                    <span className="h-4 w-4 rounded-full border mr-2 bg-background"></span>
+                    Jasny
+                  </Button>
+                  <Button variant="outline" className="justify-start">
+                    <span className="h-4 w-4 rounded-full border mr-2 bg-black"></span>
+                    Ciemny
+                  </Button>
+                  <Button variant="outline" className="justify-start">
+                    <span className="h-4 w-4 rounded-full border mr-2 bg-gradient-to-r from-gray-200 to-gray-800"></span>
+                    Systemowy
+                  </Button>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label>Rozmiar czcionki</Label>
+                <div className="grid grid-cols-3 gap-2">
+                  <Button variant="outline">Mały</Button>
+                  <Button variant="outline">Średni</Button>
+                  <Button variant="outline">Duży</Button>
+                </div>
+              </div>
+            </CardContent>
+            <CardFooter className="flex justify-end">
+              <Button>Zapisz preferencje</Button>
             </CardFooter>
           </Card>
         </TabsContent>
@@ -121,220 +251,77 @@ export default function SettingsPage() {
                 Zarządzaj ustawieniami bezpieczeństwa swojego konta.
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="space-y-4">
-                <h3 className="text-lg font-medium">Zmiana hasła</h3>
-                <div className="grid grid-cols-1 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="current-password">Aktualne hasło</Label>
-                    <Input id="current-password" type="password" />
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="font-medium">Uwierzytelnianie dwuskładnikowe</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Dodatkowa warstwa zabezpieczeń dla Twojego konta.
+                    </p>
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="new-password">Nowe hasło</Label>
-                    <Input id="new-password" type="password" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="confirm-password">Potwierdź nowe hasło</Label>
-                    <Input id="confirm-password" type="password" />
-                  </div>
+                  <Switch defaultChecked />
                 </div>
-                <Button>Zmień hasło</Button>
               </div>
-
               <Separator />
-
-              <div className="space-y-4">
-                <h3 className="text-lg font-medium">Weryfikacja dwuetapowa</h3>
-                <div className="flex justify-between items-center">
-                  <div className="space-y-0.5">
-                    <div className="font-medium">Uwierzytelnianie dwuskładnikowe</div>
-                    <div className="text-sm text-muted-foreground">
-                      Dodaj dodatkową warstwę zabezpieczeń do swojego konta.
-                    </div>
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="font-medium">Sesje urządzeń</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Zarządzaj aktywnymi sesjami na urządzeniach.
+                    </p>
                   </div>
-                  <Switch defaultChecked={false} />
+                  <Button variant="outline">Zarządzaj</Button>
+                </div>
+              </div>
+              <Separator />
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="font-medium">Historia logowań</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Przeglądaj historię logowań na konto.
+                    </p>
+                  </div>
+                  <Button variant="outline">Zobacz historię</Button>
                 </div>
               </div>
             </CardContent>
           </Card>
         </TabsContent>
 
-        <TabsContent value="notifications">
+        <TabsContent value="organization">
           <Card>
             <CardHeader>
-              <CardTitle>Powiadomienia</CardTitle>
+              <CardTitle>Ustawienia organizacji</CardTitle>
               <CardDescription>
-                Zdecyduj, które powiadomienia chcesz otrzymywać i kiedy.
+                Zarządzaj ustawieniami związanymi z Twoją organizacją.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="org-name">Nazwa organizacji</Label>
+                <Input id="org-name" defaultValue="Tasker Inc." />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="org-address">Adres</Label>
+                <Textarea id="org-address" defaultValue="ul. Przykładowa 123, 00-001 Warszawa" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="org-tax-id">NIP</Label>
+                <Input id="org-tax-id" defaultValue="1234567890" />
+              </div>
               <div className="space-y-4">
-                <h3 className="text-lg font-medium">Powiadomienia e-mail</h3>
-                <div className="space-y-3">
-                  {[
-                    { id: "email-tasks", label: "Zadania", description: "Powiadomienia o przypisanych i zmienionych zadaniach" },
-                    { id: "email-meetings", label: "Spotkania", description: "Powiadomienia o spotkaniach i zmianach w kalendarzu" },
-                    { id: "email-projects", label: "Projekty", description: "Aktualizacje projektów i kamienie milowe" },
-                    { id: "email-team", label: "Zespół", description: "Działania członków zespołu i komunikacja" },
-                  ].map((item) => (
-                    <div key={item.id} className="flex justify-between items-start">
-                      <div className="space-y-0.5">
-                        <div className="font-medium">{item.label}</div>
-                        <div className="text-sm text-muted-foreground">{item.description}</div>
-                      </div>
-                      <Switch defaultChecked={true} />
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <Separator />
-
-              <div className="space-y-4">
-                <h3 className="text-lg font-medium">Powiadomienia w aplikacji</h3>
-                <div className="space-y-3">
-                  {[
-                    { id: "app-mentions", label: "Wzmianki", description: "Kiedy ktoś oznacza Cię w komentarzu lub zadaniu" },
-                    { id: "app-deadlines", label: "Terminy", description: "Przypomnienia o zbliżających się terminach" },
-                    { id: "app-comments", label: "Komentarze", description: "Nowe komentarze w zadaniach, do których jesteś przypisany" },
-                  ].map((item) => (
-                    <div key={item.id} className="flex justify-between items-start">
-                      <div className="space-y-0.5">
-                        <div className="font-medium">{item.label}</div>
-                        <div className="text-sm text-muted-foreground">{item.description}</div>
-                      </div>
-                      <Switch defaultChecked={true} />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </CardContent>
-            <CardFooter className="flex justify-end">
-              <Button>Zapisz preferencje</Button>
-            </CardFooter>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="privacy">
-          <Card>
-            <CardHeader>
-              <CardTitle>Prywatność</CardTitle>
-              <CardDescription>
-                Zarządzaj ustawieniami prywatności swojego konta.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-3">
-                {[
-                  { id: "privacy-profile", label: "Widoczność profilu", description: "Kto może zobaczyć Twój profil" },
-                  { id: "privacy-activity", label: "Aktywność", description: "Kto może zobaczyć Twoją aktywność" },
-                  { id: "privacy-tasks", label: "Zadania", description: "Kto może zobaczyć Twoje zadania" },
-                ].map((item) => (
-                  <div key={item.id} className="flex justify-between items-start">
-                    <div className="space-y-0.5">
-                      <div className="font-medium">{item.label}</div>
-                      <div className="text-sm text-muted-foreground">{item.description}</div>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Button variant="outline" size="sm">Tylko ja</Button>
-                      <Button variant="outline" size="sm">Zespół</Button>
-                      <Button variant="outline" size="sm">Wszyscy</Button>
-                    </div>
+                <h3 className="text-sm font-medium">Członkostwo</h3>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4 className="font-medium">Plan biznesowy</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Do 50 użytkowników, wszystkie funkcje.
+                    </p>
                   </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="appearance">
-          <Card>
-            <CardHeader>
-              <CardTitle>Wygląd</CardTitle>
-              <CardDescription>
-                Dostosuj wygląd aplikacji do swoich preferencji.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-4">
-                <h3 className="text-lg font-medium">Motyw</h3>
-                <div className="grid grid-cols-3 gap-4">
-                  <Button variant="outline" className="justify-start" size="lg">
-                    <Sun className="h-4 w-4 mr-2" />
-                    Jasny
-                  </Button>
-                  <Button variant="outline" className="justify-start" size="lg">
-                    <Moon className="h-4 w-4 mr-2" />
-                    Ciemny
-                  </Button>
-                  <Button variant="outline" className="justify-start" size="lg">
-                    <Laptop className="h-4 w-4 mr-2" />
-                    Systemowy
-                  </Button>
-                </div>
-              </div>
-
-              <Separator />
-
-              <div className="space-y-3">
-                <h3 className="text-lg font-medium">Inne ustawienia</h3>
-                <div className="flex justify-between items-center">
-                  <div className="space-y-0.5">
-                    <div className="font-medium">Animacje</div>
-                    <div className="text-sm text-muted-foreground">Włącz lub wyłącz animacje w aplikacji</div>
-                  </div>
-                  <Switch defaultChecked={true} />
-                </div>
-                <div className="flex justify-between items-center">
-                  <div className="space-y-0.5">
-                    <div className="font-medium">Tryb kompaktowy</div>
-                    <div className="text-sm text-muted-foreground">Zmniejsza odstępy w interfejsie</div>
-                  </div>
-                  <Switch defaultChecked={false} />
-                </div>
-              </div>
-            </CardContent>
-            <CardFooter className="flex justify-end">
-              <Button>Zapisz preferencje</Button>
-            </CardFooter>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="workspace">
-          <Card>
-            <CardHeader>
-              <CardTitle>Ustawienia workspace</CardTitle>
-              <CardDescription>
-                Zarządzaj swoją przestrzenią roboczą i ustawieniami organizacji.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="space-y-4">
-                <h3 className="text-lg font-medium">Informacje o organizacji</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="org-name">Nazwa organizacji</Label>
-                    <Input id="org-name" defaultValue="Acme Inc." />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="org-domain">Domena</Label>
-                    <Input id="org-domain" defaultValue="acme.com" />
-                  </div>
-                </div>
-              </div>
-
-              <Separator />
-
-              <div className="space-y-4">
-                <h3 className="text-lg font-medium">Zarządzanie subskrypcją</h3>
-                <div className="rounded-md border p-4">
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <h4 className="font-medium">Plan Business</h4>
-                      <p className="text-sm text-muted-foreground">25 użytkowników, wszystkie funkcje</p>
-                    </div>
-                    <Button variant="outline">Zmień plan</Button>
-                  </div>
+                  <Button variant="outline">Zmień plan</Button>
                 </div>
               </div>
             </CardContent>

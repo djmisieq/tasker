@@ -25,6 +25,20 @@ Tasker to nowoczesna aplikacja webowa, która umożliwia efektywne zarządzanie 
 
 ## Uruchomienie projektu
 
+### Opcja 1: Szybkie uruchomienie jedną komendą
+
+Możesz uruchomić aplikację używając jednej komendy, która pobierze najnowsze zmiany, zainstaluje zależności i uruchomi serwer deweloperski:
+
+```bash
+# Nadaj uprawnienia wykonywania
+chmod +x ./start.sh
+
+# Uruchom skrypt startowy
+./start.sh
+```
+
+### Opcja 2: Standardowe uruchomienie
+
 ```bash
 # Instalacja zależności
 npm install
@@ -41,13 +55,27 @@ pnpm dev
 yarn dev
 ```
 
-Otwórz [http://localhost:3000](http://localhost:3000) w przeglądarce, aby zobaczyć aplikację.
+### Opcja 3: Użycie skryptów npm
+
+```bash
+# Pełna inicjalizacja (git pull + instalacja + build + uruchomienie)
+npm run start:dev
+
+# Tylko instalacja i uruchomienie
+npm run setup
+```
+
+Po uruchomieniu otwórz [http://localhost:3000](http://localhost:3000) w przeglądarce, aby zobaczyć aplikację.
+
+## Praca z projektem w GitHub Codespaces
+
+Ten projekt jest skonfigurowany do pracy w GitHub Codespaces. Po otwarciu projektu w Codespaces, uruchom aplikację używając jednej z powyższych metod. Aplikacja będzie automatycznie dostępna przez port 3000, który zostanie przekierowany na publiczny URL.
 
 ## Struktura projektu
 
 - `/app` - główne komponenty aplikacji i routing Next.js
 - `/components` - komponenty UI aplikacji
-- `/hooks` - hooksi React
+- `/hooks` - hooki React
 - `/contexts` - konteksty React
 - `/lib` - biblioteki i funkcje pomocnicze
 - `/styles` - style globalne

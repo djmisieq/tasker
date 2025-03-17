@@ -19,6 +19,15 @@
       }
     }
   },
-  "postCreateCommand": "npm install",
-  "remoteUser": "node"
+  "postCreateCommand": "chmod +x ./setup.sh ./start.sh && npm install",
+  "postStartCommand": "npm run dev",
+  "remoteUser": "node",
+  "updateContentCommand": "npm run setup",
+  "waitFor": "onCreateCommand",
+  "portsAttributes": {
+    "3000": {
+      "label": "Tasker App",
+      "onAutoForward": "openPreview"
+    }
+  }
 }

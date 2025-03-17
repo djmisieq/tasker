@@ -1,20 +1,18 @@
 #!/bin/bash
 
-# Wyświetlanie informacji o postępie
-echo "🚀 Inicjalizacja aplikacji Tasker..."
+# Kolory dla czytelności komunikatów
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
 
-# Pobieranie najnowszych zmian z repozytorium
-echo "📥 Pobieranie najnowszych zmian z repozytorium..."
-git pull origin main
+echo -e "${YELLOW}Usuwanie node_modules (jeśli istnieje)...${NC}"
+rm -rf node_modules
 
-# Instalacja zależności
-echo "📦 Instalacja zależności..."
-npm install
+echo -e "${YELLOW}Usuwanie package-lock.json (jeśli istnieje)...${NC}"
+rm -f package-lock.json
 
-# Budowanie aplikacji (jeśli potrzebne)
-echo "🔨 Budowanie aplikacji..."
-npm run build
+echo -e "${YELLOW}Instalowanie zależności z flagą --legacy-peer-deps...${NC}"
+npm install --legacy-peer-deps
 
-# Uruchamianie aplikacji
-echo "🌐 Uruchamianie serwera deweloperskiego na porcie 3000..."
-npm run dev
+echo -e "${GREEN}Instalacja zakończona pomyślnie!${NC}"
+echo -e "${GREEN}Możesz teraz uruchomić aplikację używając komendy: npm run dev${NC}"

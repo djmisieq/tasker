@@ -2,76 +2,64 @@
 
 Tasker to nowoczesna aplikacja webowa, która umożliwia efektywne zarządzanie zadaniami, projektami i spotkaniami w zespole. Aplikacja oferuje intuicyjny interfejs użytkownika, który wspiera organizację pracy i poprawia produktywność zespołu.
 
-## Funkcje
+## 🚀 Funkcje
 
 - **Dashboard** - przegląd najważniejszych informacji, statystyk i nadchodzących wydarzeń
-- **Zarządzanie zadaniami** - tworzenie, przypisywanie i śledzenie postępu zadań
+- **Zarządzanie zadaniami** - tworzenie, przypisywanie i śledzenie postępu zadań z użyciem tablicy Kanban
 - **Zarządzanie projektami** - organizacja zadań w projekty z diagramami Gantta
 - **Planowanie spotkań** - koordynacja i zarządzanie spotkaniami zespołu
 - **Struktura organizacyjna** - wizualizacja struktury zespołu i organizacji
 - **Wsparcie dla trybu ciemnego** - komfort pracy w różnych warunkach oświetleniowych
 - **Responsywny design** - dostosowany do pracy na urządzeniach mobilnych i desktopowych
 
-## Technologie
+## 🛠️ Technologie
 
 - **Next.js 15** - framework React do budowy nowoczesnych aplikacji
 - **React 19** - biblioteka JavaScript do tworzenia interfejsów użytkownika
 - **TypeScript** - typowany JavaScript dla lepszej jakości kodu
-- **Tailwind CSS** - frameworka CSS do szybkiego tworzenia responsywnych interfejsów
-- **Shadcn UI** - zestaw dostępnych i konfigurowanlnych komponentów UI
+- **Tailwind CSS** - framework CSS do szybkiego tworzenia responsywnych interfejsów
+- **Shadcn UI** - zestaw dostępnych i konfigurowalnych komponentów UI
 - **DND Kit** - biblioteka drag-and-drop do interaktywnych interfejsów
 - **Recharts** - biblioteka do tworzenia wykresów
 - **Lucide Icons** - zestaw nowoczesnych ikon
 
-## Uruchomienie projektu
+## 🚀 Uruchomienie projektu w GitHub Codespaces
 
-### Opcja 1: Szybkie uruchomienie jedną komendą
+### Metoda 1: Automatyczna instalacja (zalecana)
 
-Możesz uruchomić aplikację używając jednej komendy, która pobierze najnowsze zmiany, zainstaluje zależności i uruchomi serwer deweloperski:
+1. Otwórz projekt w GitHub Codespaces
+2. Poczekaj, aż środowisko zostanie zainicjowane (skrypt `setup.sh` zostanie automatycznie uruchomiony)
+3. Po zakończeniu instalacji, uruchom aplikację:
+   ```bash
+   npm run dev
+   ```
 
-```bash
-# Nadaj uprawnienia wykonywania
-chmod +x ./start.sh
+### Metoda 2: Ręczna instalacja
 
-# Uruchom skrypt startowy
-./start.sh
-```
+1. Otwórz projekt w GitHub Codespaces
+2. Uruchom ręcznie skrypt instalacyjny:
+   ```bash
+   npm run setup
+   ```
+3. Po zakończeniu instalacji, uruchom aplikację:
+   ```bash
+   npm run dev
+   ```
 
-### Opcja 2: Standardowe uruchomienie
+### Rozwiązywanie problemów
 
-```bash
-# Instalacja zależności
-npm install
-# lub
-pnpm install
-# lub
-yarn install
-
-# Uruchomienie serwera deweloperskiego
-npm run dev
-# lub
-pnpm dev
-# lub
-yarn dev
-```
-
-### Opcja 3: Użycie skryptów npm
+Jeśli napotkasz błędy związane z zależnościami, spróbuj:
 
 ```bash
-# Pełna inicjalizacja (git pull + instalacja + build + uruchomienie)
-npm run start:dev
+# Usunąć istniejące instalacje
+rm -rf node_modules
+rm -f package-lock.json
 
-# Tylko instalacja i uruchomienie
-npm run setup
+# Zainstalować pakiety z obejściem konfliktów zależności
+npm install --legacy-peer-deps
 ```
 
-Po uruchomieniu otwórz [http://localhost:3000](http://localhost:3000) w przeglądarce, aby zobaczyć aplikację.
-
-## Praca z projektem w GitHub Codespaces
-
-Ten projekt jest skonfigurowany do pracy w GitHub Codespaces. Po otwarciu projektu w Codespaces, uruchom aplikację używając jednej z powyższych metod. Aplikacja będzie automatycznie dostępna przez port 3000, który zostanie przekierowany na publiczny URL.
-
-## Struktura projektu
+## 📁 Struktura projektu
 
 - `/app` - główne komponenty aplikacji i routing Next.js
 - `/components` - komponenty UI aplikacji
@@ -81,6 +69,6 @@ Ten projekt jest skonfigurowany do pracy w GitHub Codespaces. Po otwarciu projek
 - `/styles` - style globalne
 - `/public` - statyczne pliki
 
-## Licencja
+## 📝 Licencja
 
 Ten projekt jest własnością prywatną i nie jest objęty licencją open source.

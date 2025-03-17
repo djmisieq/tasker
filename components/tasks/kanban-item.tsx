@@ -1,9 +1,12 @@
+"use client"
+
 import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
-import { Task } from "@/components/tasks/kanban-board"
 import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Card, CardContent } from "@/components/ui/card"
+import type { Task } from "@/components/tasks/kanban-board"
 import { Calendar } from "lucide-react"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { cn } from "@/lib/utils"
 
 interface KanbanItemProps {
@@ -12,13 +15,10 @@ interface KanbanItemProps {
   overlay?: boolean
 }
 
-export function KanbanItem({ task, onClick, overlay = false }: KanbanItemProps) {
+export function KanbanItem({ task, onClick, overlay }: KanbanItemProps) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: task.id,
-    data: {
-      type: "Task",
-      task,
-    },
+    disabled: overlay,
   })
 
   const style = {
@@ -52,50 +52,53 @@ export function KanbanItem({ task, onClick, overlay = false }: KanbanItemProps) 
     }
   }
 
-  const isOverdue = new Date(task.dueDate) < new Date() && task.status !== "done"
+  // Symulacja danych użytkownika
+  const assigneeData = {
+    avatar: "/placeholder.svg?height=32&width=32",
+    initials: task.assignee
+      .split(" ")
+      .map((n) => n[0])
+      .join(""),
+  }
 
   return (
-    <div
+    <Card
       ref={setNodeRef}
       style={style}
+      className={cn(
+        "cursor-grab hover-card-animation border-border/50",
+        isDragging && "task-card-dragging",
+        overlay && "opacity-70",
+      )}
       {...attributes}
       {...listeners}
       onClick={onClick}
-      className={cn(
-        "bg-card p-3 rounded-md border shadow-sm cursor-pointer hover:shadow-md transition-all",
-        isDragging && "opacity-50 task-card-dragging",
-        isOverdue && "border-red-200 dark:border-red-900",
-        overlay && "cursor-grabbing shadow-md rotate-1"
-      )}
     >
-      <div className="space-y-2">
-        <div className="flex justify-between">
-          <div className="font-medium text-sm truncate">{task.title}</div>
-        </div>
-        <div className="flex items-center justify-between gap-2">
+      <CardContent className="p-3 space-y-2">
+        <h4 className="text-sm font-medium">{task.title}</h4>
+
+        <div className="flex items-center justify-between">
           <Badge variant="outline" className={getPriorityColor(task.priority)}>
             {getPriorityLabel(task.priority)}
           </Badge>
-          <div className="flex items-center gap-2">
-            <div className="flex items-center text-xs text-muted-foreground">
-              <Calendar className="w-3 h-3 mr-1" />
-              <span className={cn(isOverdue && "text-red-500")}>{task.dueDate}</span>
-            </div>
-            <Avatar className="h-6 w-6">
-              <AvatarImage src="/placeholder.svg?height=24&width=24" alt={task.assignee} />
-              <AvatarFallback className="text-[10px]">
-                {task.assignee
-                  .split(" ")
-                  .map((n) => n[0])
-                  .join("")}
-              </AvatarFallback>
+
+          {task.project && <span className="text-xs text-muted-foreground">{task.project}</span>}
+        </div>
+
+        <div className="flex items-center justify-between text-xs text-muted-foreground pt-1">
+          <div className="flex items-center">
+            <Avatar className="h-5 w-5 mr-1">
+              <AvatarImage src={assigneeData.avatar} alt={task.assignee} />
+              <AvatarFallback className="text-[10px]">{assigneeData.initials}</AvatarFallback>
             </Avatar>
+            <span className="truncate max-w-[100px]">{task.assignee}</span>
+          </div>
+          <div className="flex items-center">
+            <Calendar className="mr-1 h-3 w-3" />
+            {new Date(task.dueDate).toLocaleDateString("pl-PL", { day: "numeric", month: "short" })}
           </div>
         </div>
-        {task.project && (
-          <div className="truncate text-xs text-muted-foreground pt-1">{task.project}</div>
-        )}
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   )
 }

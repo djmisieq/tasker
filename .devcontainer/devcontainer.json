@@ -2,15 +2,6 @@
   "name": "Tasker Next.js Development",
   "image": "mcr.microsoft.com/devcontainers/javascript-node:18",
   "forwardPorts": [3000],
-  "portsAttributes": {
-    "3000": {
-      "label": "Application",
-      "onAutoForward": "openPreview"
-    }
-  },
-  "otherPortsAttributes": {
-    "onAutoForward": "notify"
-  },
   "customizations": {
     "vscode": {
       "extensions": [
@@ -24,14 +15,16 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.codeActionsOnSave": {
           "source.fixAll.eslint": true
-        }
+        },
+        "typescript.tsdk": "node_modules/typescript/lib"
       }
     }
   },
+  "postCreateCommand": "npm run setup",
+  "remoteUser": "node",
   "features": {
-    "ghcr.io/devcontainers-contrib/features/pnpm:2": {}
-  },
-  "postCreateCommand": "pnpm install",
-  "postStartCommand": "pnpm dev",
-  "remoteUser": "node"
+    "ghcr.io/devcontainers/features/git:1": {
+      "version": "latest"
+    }
+  }
 }
